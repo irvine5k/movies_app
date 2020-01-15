@@ -7,6 +7,7 @@ class MovieCardWidget extends StatelessWidget {
   final String genre;
   final String overview;
   final String imagePath;
+  final bool isTest;
 
   const MovieCardWidget({
     Key key,
@@ -15,6 +16,7 @@ class MovieCardWidget extends StatelessWidget {
     @required this.genre,
     @required this.overview,
     @required this.imagePath,
+    this.isTest = false,
   }) : super(key: key);
 
   @override
@@ -43,12 +45,14 @@ class MovieCardWidget extends StatelessWidget {
                       color: Colors.blue.withOpacity(0.5),
                     ),
                     borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        'http://image.tmdb.org/t/p/w185/$imagePath',
-                      ),
-                      fit: BoxFit.cover,
-                    ),
+                    image: isTest
+                        ? null
+                        : DecorationImage(
+                            image: NetworkImage(
+                              'http://image.tmdb.org/t/p/w185/$imagePath',
+                            ),
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
               ),
@@ -97,12 +101,11 @@ class MovieCardWidget extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (context) => MoviePage(
-            name: name,
-            genre: genre,
-            overview: overview,
-            relaseDate: releaseDate,
-            imagePath: imagePath
-          ),
+              name: name,
+              genre: genre,
+              overview: overview,
+              relaseDate: releaseDate,
+              imagePath: imagePath),
         ),
       ),
     );

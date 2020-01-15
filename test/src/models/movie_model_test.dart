@@ -12,7 +12,6 @@ void main() {
   };
 
   final _posterPath = "/jyw8VKYEiM1UDzPB7NsisUgBeJ8.jpg";
-  final _originalTitle = "Jumanji: The Next Level";
   final _genreIds = [28, 12, 35, 14];
   final _title = "Jumanji: The Next Level";
   final _overview =
