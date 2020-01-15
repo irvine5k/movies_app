@@ -6,6 +6,10 @@ import 'package:movies_app/src/services/movies_service.dart';
 import 'package:movies_app/src/widgets/movie_card_widget.dart';
 
 class SearchPage extends StatefulWidget {
+  final MoviesService moviesService;
+  final bool isTest;
+
+  const SearchPage({Key key, this.moviesService, this.isTest = false}) : super(key: key);
   @override
   _SearchPageState createState() => _SearchPageState();
 }
@@ -16,7 +20,12 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void initState() {
-    _bloc = SearchMoviesBloc(MoviesService(Dio()));
+    _bloc = SearchMoviesBloc(
+      widget.moviesService ??
+          MoviesService(
+            Dio(),
+          ),
+    );
     _scrollController = ScrollController();
     _scrollController.addListener(scrollListener);
     super.initState();
@@ -46,11 +55,8 @@ class _SearchPageState extends State<SearchPage> {
                         itemCount: snapshot.data.length,
                         scrollDirection: Axis.vertical,
                         itemBuilder: (context, index) => MovieCardWidget(
-                          name: snapshot.data[index].title,
-                          imagePath: snapshot.data[index].posterPath,
-                          overview: snapshot.data[index].overview,
-                          releaseDate: formatData(snapshot.data[index].releaseDate),
-                          genre: snapshot.data[index].genreIds.first.toString(),
+                         movie: snapshot.data[index],
+                         isTest: widget.isTest,
                         ),
                       ),
                     )
@@ -96,10 +102,7 @@ class _SearchPageState extends State<SearchPage> {
         textCapitalization: TextCapitalization.characters,
         decoration: InputDecoration(
           hoverColor: Colors.white,
-          prefixIcon: Icon(
-            Icons.search,
-            color: Colors.blue
-          ),
+          prefixIcon: Icon(Icons.search, color: Colors.blue),
           border: InputBorder.none,
           contentPadding: EdgeInsets.all(20),
         ),

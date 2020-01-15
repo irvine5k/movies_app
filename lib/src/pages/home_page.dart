@@ -8,6 +8,14 @@ import 'package:movies_app/src/services/movies_service.dart';
 import 'package:movies_app/src/widgets/movie_card_widget.dart';
 
 class HomePage extends StatefulWidget {
+  final MoviesService moviesService;
+  final bool isTest;
+
+  const HomePage({
+    Key key,
+    this.moviesService,
+    this.isTest = false,
+  }) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -18,7 +26,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _moviesBloc = UpcomingMoviesBloc(MoviesService(Dio()));
+    _moviesBloc = UpcomingMoviesBloc(
+      widget.moviesService ??
+          MoviesService(
+            Dio(),
+          ),
+    );
     _scrollController = ScrollController();
     _scrollController.addListener(scrollListener);
     super.initState();
@@ -48,11 +61,8 @@ class _HomePageState extends State<HomePage> {
                         itemCount: snapshot.data.length,
                         scrollDirection: Axis.vertical,
                         itemBuilder: (context, index) => MovieCardWidget(
-                          name: snapshot.data[index].title,
-                          imagePath: snapshot.data[index].posterPath,
-                          overview: snapshot.data[index].overview,
-                          releaseDate: formatData(snapshot.data[index].releaseDate),
-                          genre: snapshot.data[index].genreIds.first.toString(),
+                          movie: snapshot.data[index],
+                          isTest: widget.isTest,
                         ),
                       ),
                     )
@@ -85,20 +95,18 @@ class _HomePageState extends State<HomePage> {
 
   IconButton buildIconButton(BuildContext context) {
     return IconButton(
-          icon: Icon(
-            Icons.search,
-            color: Colors.blue,
-          ),
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SearchPage(),
-            ),
-          ),
-        );
+      icon: Icon(
+        Icons.search,
+        color: Colors.blue,
+      ),
+      onPressed: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SearchPage(),
+        ),
+      ),
+    );
   }
-
-  String formatData(DateTime date) => '${date.day}-${date.month}-${date.year}';
 
   @override
   void dispose() {

@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/src/models/movie_model.dart';
 import 'package:movies_app/src/pages/movie_page.dart';
 
 class MovieCardWidget extends StatelessWidget {
-  final String name;
-  final String releaseDate;
-  final String genre;
-  final String overview;
-  final String imagePath;
+  final MovieModel movie;
+
   final bool isTest;
 
   const MovieCardWidget({
     Key key,
-    @required this.name,
-    @required this.releaseDate,
-    @required this.genre,
-    @required this.overview,
-    @required this.imagePath,
+    @required this.movie,
     this.isTest = false,
   }) : super(key: key);
 
@@ -49,7 +43,7 @@ class MovieCardWidget extends StatelessWidget {
                         ? null
                         : DecorationImage(
                             image: NetworkImage(
-                              'http://image.tmdb.org/t/p/w185/$imagePath',
+                              'http://image.tmdb.org/t/p/w185/${movie.posterPath}',
                             ),
                             fit: BoxFit.cover,
                           ),
@@ -70,7 +64,7 @@ class MovieCardWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Text(
-                        name,
+                        movie.title,
                         style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
@@ -79,11 +73,11 @@ class MovieCardWidget extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        genre,
+                        movie.genres,
                         style: TextStyle(color: Colors.blue),
                       ),
                       Text(
-                        'Release: $releaseDate',
+                        'Release: ${movie.formatedReleasedData}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.blue,
@@ -101,11 +95,8 @@ class MovieCardWidget extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (context) => MoviePage(
-              name: name,
-              genre: genre,
-              overview: overview,
-              relaseDate: releaseDate,
-              imagePath: imagePath),
+            movie: movie,
+          ),
         ),
       ),
     );

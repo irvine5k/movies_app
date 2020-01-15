@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/src/models/movie_model.dart';
 
 class MoviePage extends StatelessWidget {
-  final String name;
-  final String relaseDate;
-  final String overview;
-  final String genre;
-  final String imagePath;
+  final MovieModel movie;
+
+  final bool isTest;
 
   const MoviePage({
     Key key,
-    @required this.name,
-    @required this.relaseDate,
-    @required this.overview,
-    @required this.genre,
-    @required this.imagePath,
+    @required this.movie,
+    this.isTest = false,
   }) : super(key: key);
 
   @override
@@ -37,12 +33,14 @@ class MoviePage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.6,
                 height: MediaQuery.of(context).size.height * 0.5,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      'http://image.tmdb.org/t/p/w185/$imagePath',
-                    ),
-                    fit: BoxFit.fill,
-                  ),
+                  image: isTest
+                      ? null
+                      : DecorationImage(
+                          image: NetworkImage(
+                            'http://image.tmdb.org/t/p/w185/${movie.posterPath}',
+                          ),
+                          fit: BoxFit.fill,
+                        ),
                 ),
               ),
             ),
@@ -50,28 +48,28 @@ class MoviePage extends StatelessWidget {
               elevation: 2,
               child: ListTile(
                 title: Text('Name'),
-                subtitle: Text(name),
+                subtitle: Text(movie.title),
               ),
             ),
             Card(
               elevation: 2,
               child: ListTile(
                 title: Text('Release Date'),
-                subtitle: Text(relaseDate),
+                subtitle: Text(movie.formatedReleasedData),
               ),
             ),
             Card(
               elevation: 2,
               child: ListTile(
                 title: Text('Genre'),
-                subtitle: Text(genre),
+                subtitle: Text(movie.genres),
               ),
             ),
             Card(
               elevation: 2,
               child: ListTile(
                 title: Text('Overview'),
-                subtitle: Text(overview),
+                subtitle: Text(movie.overview),
               ),
             ),
           ],
@@ -80,4 +78,3 @@ class MoviePage extends StatelessWidget {
     );
   }
 }
-
