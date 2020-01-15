@@ -22,9 +22,6 @@ class UpcomingMoviesBloc {
         )
         .scan<List<MovieModel>>(
             (acc, curr, i) => acc..addAll(List.from(curr)), []);
-
-    _upcomingMovies.listen((e) => print('upcoming movies lenght ${e.length}'));
-    _upcomingPage.listen((i) => print('Upcoming Page: $i'));
   }
 
   void dispose() {

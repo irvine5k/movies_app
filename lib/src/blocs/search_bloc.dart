@@ -9,7 +9,7 @@ class SearchMoviesBloc {
 
   Stream<List<MovieModel>> _results;
 
-  Sink<String> get setQuery=> _query.sink;
+  Sink<String> get setQuery => _query.sink;
   Sink get setPage => _page.sink;
   Stream<List<MovieModel>> get getResults => _results;
 
@@ -29,9 +29,6 @@ class SearchMoviesBloc {
               .scan<List<MovieModel>>(
                   (acc, curr, i) => acc..addAll(List.from(curr)), []),
         );
-
-    _results.listen((e) => print(e.length));
-    _page.listen(print);
   }
 
   void dispose() {
