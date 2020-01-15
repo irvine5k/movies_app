@@ -3,11 +3,13 @@ import 'package:movies_app/src/models/movie_model.dart';
 
 class MoviesService {
   final _apiKey = '060e7c76aff06a20ca4a875981216f3f';
-  final _client = Dio();
+  final Dio client;
+
+  MoviesService(this.client);
 
   Future<List<MovieModel>> search(String query, int page) async {
     try {
-      final response = await _client.get(
+      final response = await client.get(
           "https://api.themoviedb.org/3/search/movie?api_key=$_apiKey&language=en-US&query=$query&page=$page&include_adult=false");
 
       final result = List<MovieModel>.from(
@@ -29,7 +31,7 @@ class MoviesService {
 
   Future<List<MovieModel>> getUpcomingMovies(int page) async {
     try {
-      final response = await _client.get(
+      final response = await client.get(
           "https://api.themoviedb.org/3/movie/upcoming?api_key=$_apiKey&language=en-US&page=$page");
 
       final result = List<MovieModel>.from(

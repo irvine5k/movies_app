@@ -1,9 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:movies_app/src/models/movie_model.dart';
 import 'package:movies_app/src/services/movies_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UpcomingMoviesBloc {
-  final _moviesService = MoviesService();
+  final _moviesService = MoviesService(Dio());
   final _page = BehaviorSubject<int>();
   final _upcomingPage = BehaviorSubject<int>();
 
