@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/src/blocs/search_bloc.dart';
 import 'package:movies_app/src/models/movie_model.dart';
+import 'package:movies_app/src/services/movies_service.dart';
 import 'package:movies_app/src/widgets/movie_card_widget.dart';
 
 class SearchPage extends StatefulWidget {
@@ -14,7 +16,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void initState() {
-    _bloc = SearchMoviesBloc();
+    _bloc = SearchMoviesBloc(MoviesService(Dio()));
     _scrollController = ScrollController();
     _scrollController.addListener(scrollListener);
     super.initState();

@@ -4,7 +4,8 @@ import 'package:movies_app/src/services/movies_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UpcomingMoviesBloc {
-  final _moviesService = MoviesService(Dio());
+  final MoviesService moviesService;
+
   final _page = BehaviorSubject<int>();
   final _upcomingPage = BehaviorSubject<int>();
 
@@ -13,13 +14,13 @@ class UpcomingMoviesBloc {
   Sink get setPage => _upcomingPage.sink;
   Stream<List<MovieModel>> get getMovies => _upcomingMovies;
 
-  UpcomingMoviesBloc() {
+  UpcomingMoviesBloc(this.moviesService) {
     _upcomingMovies = _upcomingPage
         .startWith(0)
         .mapTo(1)
         .scan((acc, curr, i) => acc + curr, 0)
         .asyncMap(
-          (i) => _moviesService.getUpcomingMovies(i),
+          (i) => moviesService.getUpcomingMovies(i),
         )
         .scan<List<MovieModel>>(
             (acc, curr, i) => acc..addAll(List.from(curr)), []);

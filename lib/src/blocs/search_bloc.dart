@@ -4,7 +4,7 @@ import 'package:movies_app/src/services/movies_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SearchMoviesBloc {
-  final _moviesService = MoviesService(Dio());
+  final MoviesService moviesService;
   final _query = BehaviorSubject<String>();
   final _page = BehaviorSubject<int>();
 
@@ -14,7 +14,7 @@ class SearchMoviesBloc {
   Sink get setPage => _page.sink;
   Stream<List<MovieModel>> get getResults => _results;
 
-  SearchMoviesBloc() {
+  SearchMoviesBloc(this.moviesService) {
     _results = _query
         .distinct()
         .where((e) => e.length >= 3)
@@ -25,7 +25,7 @@ class SearchMoviesBloc {
               .mapTo(1)
               .scan((acc, curr, i) => acc + curr, 0)
               .asyncMap(
-                (i) => _moviesService.search(query, i),
+                (i) => moviesService.search(query, i),
               )
               .scan<List<MovieModel>>(
                   (acc, curr, i) => acc..addAll(List.from(curr)), []),

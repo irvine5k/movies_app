@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/src/blocs/movie_bloc.dart';
 import 'package:movies_app/src/models/movie_model.dart';
 import 'package:movies_app/src/pages/search_page.dart';
+import 'package:movies_app/src/services/movies_service.dart';
 import 'package:movies_app/src/widgets/movie_card_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,7 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _moviesBloc = UpcomingMoviesBloc();
+    _moviesBloc = UpcomingMoviesBloc(MoviesService(Dio()));
     _scrollController = ScrollController();
     _scrollController.addListener(scrollListener);
     super.initState();
