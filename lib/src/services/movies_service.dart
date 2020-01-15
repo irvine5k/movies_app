@@ -18,8 +18,6 @@ class MoviesService {
         ),
       );
 
-      print(result);
-
       return result;
     } on DioError catch (e) {
       print(e.response.data);
