@@ -27,7 +27,7 @@ class MovieModel {
       '${releaseDate.day}-${releaseDate.month}-${releaseDate.year}';
 
    String get genres =>
-      List<String>.from(genreIds.map((id) => genresList[id])).join(';');
+      List<String>.from(genreIds.map((id) => genresList[id])).join(', ');
 
   factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
         posterPath: json["poster_path"],

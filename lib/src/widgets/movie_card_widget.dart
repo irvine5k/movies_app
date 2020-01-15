@@ -72,9 +72,12 @@ class MovieCardWidget extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      Text(
-                        movie.genres,
-                        style: TextStyle(color: Colors.blue),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          movie.genres,
+                          style: TextStyle(color: Colors.blue),
+                        ),
                       ),
                       Text(
                         'Release: ${movie.formatedReleasedData}',
