@@ -20,8 +20,6 @@ dependencies:
   rxdart: ^0.23.1
   dio: ^3.0.8
   mockito: ^4.1.1
-  bloc: ^3.0.0
-  flutter_bloc: ^3.1.0
   flutter:
     sdk: flutter
 
