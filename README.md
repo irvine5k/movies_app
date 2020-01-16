@@ -6,10 +6,15 @@ A Movie app using: RXDart, Unit Testing, Widgets Testing.
 - Consult and Pagination
 - Search in API with Pagination
 
+## Third Libs
+- RXDart: Increase the power of Dart's Streams API, with reactive programming you can reach an elastic, resilient app.
+- Dio: It's the http package on Steroids, with Dio we run away from a lot of boilerplate requests logics.
+- Mockito: It's essential to Mock dependencies and write tests.
+
 ## Screenshots
-- [Home Page](home_screenshot.jpeg)
-- [Movie Details Page](movie_details_screenshot.jpeg)
-- [Search Movie Page](search_movies_screenshot.jpeg)
+- [Home Page](screenshots/home_screenshot.jpeg)
+- [Movie Details Page](screenshots/movie_details_screenshot.jpeg)
+- [Search Movie Page](screenshots/search_movies_screenshot.jpeg)
 
 ## Getting Started
 
